@@ -9,5 +9,6 @@ import lombok.Data;
 @ApiModel
 public class GetUserPageListReq extends Page {
     private String userName;
+    private String nickname;
     private String email;
 }

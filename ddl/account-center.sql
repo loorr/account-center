@@ -11,6 +11,7 @@ CREATE TABLE `account` (
     `login_num` int(10) unsigned DEFAULT '0' COMMENT '登录次数',
     `last_login_time` datetime(3) DEFAULT NULL COMMENT '最后登录时间',
     `valid` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否有效',
+    `first_login` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否首次登录',
 PRIMARY KEY (`id`),
 UNIQUE KEY `uid` (`uid`),
 UNIQUE KEY `email` (`email`)
