@@ -3,6 +3,7 @@ CREATE TABLE `account` (
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
     `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
+    ``
     `uid` bigint(20) unsigned unique NOT NULL COMMENT 'uid',
     `email` varchar(127) unique NOT NULL COMMENT '用户邮箱',
     `password` varchar(255) NOT NULL COMMENT '密码',
