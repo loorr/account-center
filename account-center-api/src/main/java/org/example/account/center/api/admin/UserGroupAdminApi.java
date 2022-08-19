@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.account.center.api.entity.AccountVo;
 import org.example.account.center.api.entity.req.LoginReq;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(value ="用户组管理")
+@FeignClient(value = "account-center", url = "${feign.account-center.url}")
 @RequestMapping("/account/admin/user-group")
 public interface UserGroupAdminApi {
 

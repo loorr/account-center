@@ -52,9 +52,12 @@ create table `permission`(
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
     `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
-    `name` varchar(100) NOT NULL COMMENT '权限名',
-    `remark` varchar(255) DEFAULT NULL COMMENT '权限备注',
+    `name` varchar(200) NOT NULL COMMENT '资源名',
+    `remark` varchar(255) DEFAULT NULL COMMENT '资源备注',
     `valid` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否有效',
+    `type` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '资源类型(data 0, component 1, router: 2)',
+    `url` varchar(255) DEFAULT NULL COMMENT '资源url',
+    `parent_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父资源id',
     primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
