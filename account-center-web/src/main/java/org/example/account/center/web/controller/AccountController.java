@@ -1,5 +1,6 @@
 package org.example.account.center.web.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.tove.web.infra.common.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.example.account.center.api.AccountApi;
@@ -20,7 +21,9 @@ public class AccountController implements AccountApi {
 
     @Override
     public Response<AccountVo> login(LoginReq req) {
-        return null;
+        System.out.printf("login: %s\n", JSON.toJSONString(req));
+        AccountVo result = accountService.login(req);
+        return Response.getOk(result);
     }
 
     @Override

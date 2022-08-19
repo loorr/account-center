@@ -1,6 +1,7 @@
 package org.example.account.center.web.service.impl;
 
 
+import org.checkerframework.checker.units.qual.A;
 import org.example.account.center.api.entity.AccountVo;
 import org.example.account.center.api.entity.req.LoginReq;
 import org.example.account.center.api.entity.req.ModifyUserInfoReq;
@@ -18,7 +19,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountVo login(LoginReq req) {
-        return null;
+        AccountVo result = new AccountVo();
+        result.setEmail("test");
+        return result;
     }
 
     @Override
