@@ -5,10 +5,7 @@ import com.tove.web.infra.common.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.account.center.api.admin.entity.role.RoleTreeVo;
-import org.example.account.center.api.admin.entity.role.req.AddRoleReq;
-import org.example.account.center.api.admin.entity.role.req.DeleteRoleReq;
-import org.example.account.center.api.admin.entity.role.req.GetRoleListPageReq;
-import org.example.account.center.api.admin.entity.role.req.UpdateRoleReq;
+import org.example.account.center.api.admin.entity.role.req.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -36,5 +33,9 @@ public interface RoleAdminApi {
     @ApiOperation("更新角色")
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     Response<Boolean> updateRole(@Validated @RequestBody UpdateRoleReq req);
+
+    @ApiOperation("角色关联资源")
+    @PostMapping(value = "/role-relate-rermission", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> roleRelatePermission(@Validated @RequestBody RoleRelatePermissionReq req);
 
 }

@@ -4,6 +4,7 @@ import com.tove.web.infra.common.PageResult;
 import com.tove.web.infra.common.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.checkerframework.checker.units.qual.A;
 import org.example.account.center.api.admin.entity.user.req.*;
 import org.example.account.center.api.entity.AccountVo;
 import org.example.account.center.api.entity.req.LoginReq;
@@ -38,4 +39,8 @@ public interface UserAdminApi {
     @ApiOperation("分页查询用户")
     @PostMapping(value = "/get-user-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
     Response<PageResult<AccountVo>> getUserListPage(@Validated @RequestBody GetUserPageListReq req);
+
+    @ApiOperation("用户关联用户组")
+    @PostMapping(value = "/account-relate-user-group", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> accountRelateUserGroup(@Validated @RequestBody AccountRelateUserGroupReq req);
 }

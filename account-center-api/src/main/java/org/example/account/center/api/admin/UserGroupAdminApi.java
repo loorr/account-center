@@ -9,6 +9,7 @@ import org.example.account.center.api.admin.entity.usergroup.UserGroupTreeVo;
 import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
+import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
 import org.example.account.center.api.entity.AccountVo;
 import org.example.account.center.api.entity.req.LoginReq;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -39,4 +40,7 @@ public interface UserGroupAdminApi {
     @PostMapping(value = "/update-user-group", produces = MediaType.APPLICATION_JSON_VALUE)
     Response<Boolean> updateUserGroup(@Validated @RequestBody UpdateUserGroupReq req);
 
+    @ApiOperation("用户组关联角色")
+    @PostMapping(value = "/user-group-relate-role", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> userGroupRelateRole(@Validated @RequestBody UserGroupRelateRoleReq req);
 }
