@@ -19,13 +19,8 @@ public class AccountController implements AccountApi {
 
     @Resource
     private AccountService accountService;
-
-    @NacosValue(value = "${tencent.sms.sign}", autoRefreshed = true)
-    private String sign;
-
     @Override
     public Response<AccountVo> login(LoginReq req) {
-        System.out.printf(sign);
         System.out.printf("login: %s\n", JSON.toJSONString(req));
         AccountVo result = accountService.login(req);
         return Response.getOk(result);
