@@ -20,7 +20,8 @@ public class AccountController implements AccountApi {
     @Resource
     private AccountService accountService;
     @Override
-    public Response<AccountVo> login(LoginReq req) {
+    public Response<AccountVo> login(LoginReq req,String tenantCode){
+        System.out.printf(tenantCode);
         System.out.printf("login: %s\n", JSON.toJSONString(req));
         AccountVo result = accountService.login(req);
         return Response.getOk(result);

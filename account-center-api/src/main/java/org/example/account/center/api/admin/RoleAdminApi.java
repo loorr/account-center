@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Api(value ="角色管理")
 @FeignClient(value = "account-center", url = "${feign.account-center.url}")
-@RequestMapping("/account/admin/role")
+@RequestMapping("/{tenantCode}/account/admin/role")
 public interface RoleAdminApi {
 
     @ApiOperation("分页查询角色列表")
