@@ -5,5 +5,8 @@ import lombok.Data;
 
 @Data
 public class GetRoleListPageReq extends Page {
-    private String roleName;
+    private Long id;
+    private String name;
+    private String remark;
+    private Boolean valid;
 }
