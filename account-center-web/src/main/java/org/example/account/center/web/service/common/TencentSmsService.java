@@ -1,6 +1,7 @@
 package org.example.account.center.web.service.common;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20190711.SmsClient;
@@ -24,8 +25,7 @@ public class TencentSmsService implements SmsSender{
 
     @Value("${tencent.sms.templateId:SMS_172450001}")
     private String templateId;
-
-    @Value("${tencent.sms.sign:腾讯云}")
+    @NacosValue(value = "${tencent.sms.sign:腾讯云}", autoRefreshed = true)
     private String sign;
 
     @Value("${tencent.sms.region:ap-guangzhou}")
