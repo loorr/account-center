@@ -3,7 +3,7 @@ package org.example.account.center.web.model;
 import lombok.Data;
 
 @Data
-public class Role  extends TenantModel {
+public class AccountGroup  extends TenantModel {
     private Long parentId;
     private String name;
     private String remark;

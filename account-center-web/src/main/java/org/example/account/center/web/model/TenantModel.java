@@ -4,5 +4,6 @@ import com.tove.web.infra.common.BaseModel;
 import lombok.Data;
 
 @Data
-public class UserGroup extends BaseModel {
+public class TenantModel extends BaseModel {
+    private Long tenantId;
 }
