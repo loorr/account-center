@@ -1,10 +1,14 @@
 package org.example.account.center.api.admin;
 
+import com.tove.web.infra.common.PageResult;
 import com.tove.web.infra.common.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.example.account.center.api.entity.AccountVo;
-import org.example.account.center.api.entity.req.LoginReq;
+import org.example.account.center.api.admin.entity.permission.PermissionTreeVo;
+import org.example.account.center.api.admin.entity.permission.req.AddPermissionReq;
+import org.example.account.center.api.admin.entity.permission.req.DeletePermissionReq;
+import org.example.account.center.api.admin.entity.permission.req.GetPermissionListPageReq;
+import org.example.account.center.api.admin.entity.permission.req.UpdatePermissionReq;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -18,19 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface PermissionAdminApi {
 
     @ApiOperation("分页查询权限列表")
-    @PostMapping(value = "/get-permission-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> getPermissionListPage(@Validated @RequestBody LoginReq req);
+    @PostMapping(value = "/get-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<PageResult<PermissionTreeVo>> getPermissionListPage(@Validated @RequestBody GetPermissionListPageReq req);
 
     @ApiOperation("新增权限")
-    @PostMapping(value = "/add-permission", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> addPermission(@Validated @RequestBody LoginReq req);
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> addPermission(@Validated @RequestBody AddPermissionReq req);
 
     @ApiOperation("删除权限")
-    @PostMapping(value = "/remove-permission", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> removePermission(@Validated @RequestBody LoginReq req);
+    @PostMapping(value = "/remove", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> removePermission(@Validated @RequestBody DeletePermissionReq req);
 
     @ApiOperation("更新权限")
-    @PostMapping(value = "/update-permission", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> updatePermission(@Validated @RequestBody LoginReq req);
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<Boolean> updatePermission(@Validated @RequestBody UpdatePermissionReq req);
 
 }
