@@ -8,6 +8,7 @@ import org.example.account.center.api.admin.entity.usergroup.UserGroupTreeVo;
 import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
+import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,6 +32,11 @@ public class UserGroupAdminController implements UserGroupAdminApi {
 
     @Override
     public Response<Boolean> updateUserGroup(UpdateUserGroupReq req) {
+        return null;
+    }
+
+    @Override
+    public Response<Boolean> userGroupRelateRole(UserGroupRelateRoleReq req) {
         return null;
     }
 }

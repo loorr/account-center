@@ -47,4 +47,9 @@ public class UserAdminController implements UserAdminApi {
         PageResult<AccountVo> result = userAdminService.getUserListPage(req);
         return Response.getOk(result);
     }
+
+    @Override
+    public Response<Boolean> accountRelateUserGroup(AccountRelateUserGroupReq req) {
+        return null;
+    }
 }
