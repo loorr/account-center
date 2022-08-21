@@ -6,8 +6,8 @@ create table `tenant`(
     `tenant_code` varchar(255) unique NOT NULL COMMENT '租户编码',
     `remark` varchar(255) DEFAULT NULL COMMENT '角色备注',
     `valid` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否有效',
-    PRIMARY KEY (`id`),
-)ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT COMMENT='租户管理';
+    PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1000 COMMENT='租户管理';
 
 -- 用户账户体系设计
 CREATE TABLE `account` (
@@ -64,7 +64,7 @@ create table `permission`(
     primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
-create table `account_group`(
+create table `user_group`(
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
     `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
@@ -76,23 +76,33 @@ create table `account_group`(
     primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账户组';
 
-CREATE TABLE `relate_account_role` (
-    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
-    `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
-    `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
-    `uid` bigint(20) unsigned NOT NULL COMMENT 'uid',
-    `role` varchar(50) NOT NULL COMMENT '角色',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `unique_index` (`uid`,`role`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户账户';
-
 create table `relate_role_permission`(
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
     `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
     `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
     `r_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
     `p_id` bigint(20) unsigned NOT NULL COMMENT '权限id',
-    unique key `uni_r_p_id` (`r_id`,`p_id`) USING BTREE
+    unique key `uni_r_p_id` (`r_id`,`p_id`) USING BTREE,
     primary key(id)
-)ENGINE=InnoDB  comment 'role permission';
+)ENGINE=InnoDB comment 'role permission 关联表';
+
+CREATE TABLE `relate_account_user_group` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
+    `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
+    `uid` bigint(20) unsigned NOT NULL COMMENT 'uid',
+    `ug_id` bigint(20) unsigned NOT NULL COMMENT 'ugid',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unique_index` (`uid`,`ug_id`) USING BTREE
+) ENGINE=InnoDB COMMENT='用户和用户组关联';
+
+CREATE TABLE `relate_user_group_role` (
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
+    `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
+    `ug_id` bigint(20) unsigned NOT NULL COMMENT 'uid',
+    `r_id` bigint(20) unsigned NOT NULL COMMENT 'gid',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unique_index` (`ug_id`,`r_id`) USING BTREE
+) ENGINE=InnoDB COMMENT='用户和用户组关联';
 

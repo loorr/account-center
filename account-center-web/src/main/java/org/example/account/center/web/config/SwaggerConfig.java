@@ -13,9 +13,9 @@ public class SwaggerConfig {
     public Docket demoApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.example.account.center.web.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.regex("(?!/error.*).*"))
+                .paths(PathSelectors.regex("(?!/actuator.*).*"))
                 .build();
     }
-
 }
