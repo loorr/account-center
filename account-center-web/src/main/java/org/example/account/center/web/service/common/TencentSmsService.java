@@ -25,7 +25,7 @@ public class TencentSmsService implements SmsSender{
 
     @Value("${tencent.sms.templateId:SMS_172450001}")
     private String templateId;
-    @NacosValue(value = "${tencent.sms.sign:腾讯云}", autoRefreshed = true)
+    @Value(value = "${tencent.sms.sign:腾讯云}")
     private String sign;
 
     @Value("${tencent.sms.region:ap-guangzhou}")
