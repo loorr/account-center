@@ -1,10 +1,7 @@
 package org.example.account.center.web.dao.admin;
 
 import org.apache.ibatis.annotations.*;
-import org.example.account.center.api.admin.entity.role.req.AddRoleReq;
-import org.example.account.center.api.admin.entity.role.req.DeleteRoleReq;
-import org.example.account.center.api.admin.entity.role.req.GetRoleListPageReq;
-import org.example.account.center.api.admin.entity.role.req.UpdateRoleReq;
+import org.example.account.center.api.admin.entity.role.req.*;
 import org.example.account.center.web.model.Role;
 
 import java.util.List;
@@ -44,6 +41,14 @@ public interface RoleMapper {
             " where id = #{id} and tenant_id = #{tenantId}"+
             "</script>")
     int updateRole(UpdateRoleReq req);
+
+    @Insert("<script>" +
+            "insert into role_permission(tenant_id, role_id, permission_id) values " +
+            "<foreach collection='permissionIds' item='permissionId' separator=','>" +
+            "(#{tenantId}, #{roleId}, #{permissionId})" +
+            "</foreach>" +
+            "</script>")
+    int batchInsertRolePermission(RoleRelatePermissionReq req);
 
 
 }

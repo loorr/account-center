@@ -1,14 +1,13 @@
 package org.example.account.center.web.service.admin;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.tove.web.infra.common.PageResult;
-import com.tove.web.infra.common.Response;
+import com.tove.web.infra.common.BaseException;
 import org.example.account.center.api.admin.entity.role.RoleTreeVo;
 import org.example.account.center.api.admin.entity.role.req.*;
+import org.example.account.center.web.common.AccountErrorCode;
 import org.example.account.center.web.dao.admin.RoleMapper;
 import org.example.account.center.web.model.Role;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,21 +44,41 @@ public class RoleAdminService {
 
 
     public Boolean addRole(AddRoleReq req) {
-        return null;
+        try {
+            roleMapper.addRole(req);
+            return true;
+        } catch (DuplicateKeyException e) {
+            throw  new BaseException(AccountErrorCode.DUPLICATE_KEY);
+        }
     }
 
 
     public Boolean removeRole(DeleteRoleReq req) {
-        return null;
+        try {
+            roleMapper.removeRole(req);
+            return true;
+        } catch (DuplicateKeyException e) {
+            throw  new BaseException(AccountErrorCode.DUPLICATE_KEY);
+        }
     }
 
 
     public Boolean updateRole(UpdateRoleReq req) {
-        return null;
+        try {
+            roleMapper.updateRole(req);
+            return true;
+        } catch (DuplicateKeyException e) {
+            throw  new BaseException(AccountErrorCode.DUPLICATE_KEY);
+        }
     }
 
 
     public Boolean roleRelatePermission(RoleRelatePermissionReq req) {
-        return null;
+        try {
+            roleMapper.batchInsertRolePermission(req);
+            return true;
+        } catch (DuplicateKeyException e) {
+            throw  new BaseException(AccountErrorCode.DUPLICATE_KEY);
+        }
     }
 }
