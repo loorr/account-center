@@ -16,7 +16,10 @@ public enum AccountErrorCode implements BaseError {
     USER_NOT_EXIST("407", "不存在该用户"),
     PWD_MISTAKE("408", "账户或密码错误"),
     NOT_ROLE("409", "没有权限"),
-    TENANT_CODE_NOT_NULL("410", "租户ID不能为null");
+    TENANT_CODE_NOT_NULL("410", "租户ID不能为null"),
+    TENANT_CODE_NOT_CORRECT("411", "租户CODE不正确"),
+
+    ;
 
     private final String code;
     private final String msg;

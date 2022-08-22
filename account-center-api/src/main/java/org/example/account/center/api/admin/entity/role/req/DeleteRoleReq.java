@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class DeleteRoleReq extends TenantBaseReq {
-
     @NotNull
     private Long id;
 }

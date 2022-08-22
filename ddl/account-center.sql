@@ -106,3 +106,5 @@ CREATE TABLE `relate_user_group_role` (
     UNIQUE KEY `unique_index` (`ug_id`,`r_id`) USING BTREE
 ) ENGINE=InnoDB COMMENT='用户和用户组关联';
 
+INSERT INTO tenant ( tenant_name, tenant_code, remark, valid) VALUES('super-admin', 'f0618b8e-21f6-11ed-861d-0242ac120002', NULL, 1);
+

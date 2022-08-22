@@ -8,6 +8,7 @@ import org.example.account.center.api.admin.entity.role.RoleTreeVo;
 import org.example.account.center.api.admin.entity.role.req.*;
 import org.example.account.center.web.dao.admin.RoleMapper;
 import org.example.account.center.web.model.Role;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,11 +29,7 @@ public class RoleAdminService {
         Map<Long, RoleTreeVo> roleMap = list.stream().map(
                 r -> {
                     RoleTreeVo roleTreeVo = new RoleTreeVo();
-                    roleTreeVo.setId(r.getId());
-                    roleTreeVo.setName(r.getName());
-                    roleTreeVo.setRemark(r.getRemark());
-                    roleTreeVo.setValid(r.getValid());
-                    roleTreeVo.setParentId(r.getParentId());
+                    BeanUtils.copyProperties(r, roleTreeVo);
                     roleTreeVo.setChildren(new HashSet<>());
                     return roleTreeVo;
                 }

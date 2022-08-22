@@ -17,27 +17,27 @@ import java.util.List;
 
 @Api(value ="角色管理")
 @FeignClient(value = "account-center", url = "${feign.account-center.url}")
-@RequestMapping("/{tenantCode}/account/admin/role")
+@RequestMapping("/account/admin/role")
 public interface RoleAdminApi {
 
-    @ApiOperation("分页查询角色列表")
+    @ApiOperation("查询角色列表")
     @PostMapping(value = "/get-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<List<RoleTreeVo>> getRoleListPage(@Validated @RequestBody GetRoleListPageReq req, @PathVariable(name = "tenantCode") String tenantCode);
+    Response<List<RoleTreeVo>> getRoleListPage(@Validated @RequestBody GetRoleListPageReq req);
 
     @ApiOperation("新增角色")
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<Boolean> addRole(@Validated @RequestBody AddRoleReq req,  @PathVariable(name = "tenantCode") String tenantCode);
+    Response<Boolean> addRole(@Validated @RequestBody AddRoleReq req);
 
     @ApiOperation("删除角色")
     @PostMapping(value = "/remove", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<Boolean> removeRole(@Validated @RequestBody DeleteRoleReq req,  @PathVariable(name = "tenantCode") String tenantCode);
+    Response<Boolean> removeRole(@Validated @RequestBody DeleteRoleReq req);
 
     @ApiOperation("更新角色")
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<Boolean> updateRole(@Validated @RequestBody UpdateRoleReq req,  @PathVariable(name = "tenantCode") String tenantCode);
+    Response<Boolean> updateRole(@Validated @RequestBody UpdateRoleReq req);
 
     @ApiOperation("角色关联资源")
     @PostMapping(value = "/role-relate-rermission", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<Boolean> roleRelatePermission(@Validated @RequestBody RoleRelatePermissionReq req,  @PathVariable(name = "tenantCode") String tenantCode);
+    Response<Boolean> roleRelatePermission(@Validated @RequestBody RoleRelatePermissionReq req );
 
 }

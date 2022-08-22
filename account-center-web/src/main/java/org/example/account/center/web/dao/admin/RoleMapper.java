@@ -1,15 +1,16 @@
 package org.example.account.center.web.dao.admin;
 
 import org.apache.ibatis.annotations.*;
+import org.example.account.center.api.admin.entity.role.req.AddRoleReq;
+import org.example.account.center.api.admin.entity.role.req.DeleteRoleReq;
 import org.example.account.center.api.admin.entity.role.req.GetRoleListPageReq;
+import org.example.account.center.api.admin.entity.role.req.UpdateRoleReq;
 import org.example.account.center.web.model.Role;
 
 import java.util.List;
 
 @Mapper
 public interface RoleMapper {
-
-
     @Select("<script>" +
             "select * from role " +
             "<where>" +
@@ -21,8 +22,28 @@ public interface RoleMapper {
             "<if test='valid!=null'> and valid = #{valid} </if>"+
             "</where>" +
             "</script>")
-    @Results(id="groupWithUsers",value = {
-        @Result(property = "parentId", column = " parent_id"),
+    @Results(id="getRole",value = {
+        @Result(property = "parentId", column = "parent_id"),
     })
     List<Role> getRole(GetRoleListPageReq req);
+
+    @Insert("insert into role(tenant_id, parent_id, name, remark, valid) values(#{tenantId}, #{parentId}, #{name}, #{remark}, #{valid})")
+    int addRole(AddRoleReq req);
+
+    @Update("update role set valid = 0 where id = #{id} and tenant_id = #{tenantId}")
+    int removeRole(DeleteRoleReq req);
+
+    @Update("<script>" +
+            "update role " +
+            "<set> " +
+            "<if test='parentId!=null'>parent_id=#{parentId}, </if>"+
+            "<if test='name!=null and name!=\"\"'>name=#{name}, </if>"+
+            "<if test='remark!=null and remark!=\"\"'>remark=#{remark}, </if>"+
+            "<if test='valid!=null'>valid = #{valid} </if>"+
+            "</set>"+
+            " where id = #{id} and tenant_id = #{tenantId}"+
+            "</script>")
+    int updateRole(UpdateRoleReq req);
+
+
 }
