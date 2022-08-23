@@ -43,9 +43,9 @@ public interface RoleMapper {
     int updateRole(UpdateRoleReq req);
 
     @Insert("<script>" +
-            "insert into role_permission(tenant_id, role_id, permission_id) values " +
+            "insert into relate_role_permission(r_id, p_id) values " +
             "<foreach collection='permissionIds' item='permissionId' separator=','>" +
-            "(#{tenantId}, #{roleId}, #{permissionId})" +
+            "(#{roleId}, #{permissionId})" +
             "</foreach>" +
             "</script>")
     int batchInsertRolePermission(RoleRelatePermissionReq req);

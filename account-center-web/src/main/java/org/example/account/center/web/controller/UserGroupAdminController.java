@@ -24,26 +24,36 @@ public class UserGroupAdminController extends BaseController implements UserGrou
 
     @Override
     public Response<List<UserGroupTreeVo>> getUserGroupListPage(GetUserGroupPageReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        List<UserGroupTreeVo> result = userGroupService.getUserGroupListPage(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> addUserGroup(AddUserGroupReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.addUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> removeUserGroup(DeleteRoleReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.removeUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> updateUserGroup(UpdateUserGroupReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.updateUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> userGroupRelateRole(UserGroupRelateRoleReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.userGroupRelateRole(req);
+        return Response.getOk(result);
     }
 }

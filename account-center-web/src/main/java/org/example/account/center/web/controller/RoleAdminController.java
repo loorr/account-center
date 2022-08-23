@@ -27,24 +27,28 @@ public class RoleAdminController extends BaseController implements RoleAdminApi 
 
     @Override
     public Response<Boolean> addRole(AddRoleReq req) {
+        req.setTenantId(getTenantId());
         Boolean result =  roleAdminService.addRole(req);
         return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> removeRole(DeleteRoleReq req) {
+        req.setTenantId(getTenantId());
         Boolean result = roleAdminService.removeRole(req);
         return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> updateRole(UpdateRoleReq req) {
+        req.setTenantId(getTenantId());
         Boolean result = roleAdminService.updateRole(req);
         return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> roleRelatePermission(RoleRelatePermissionReq req) {
+        req.setTenantId(getTenantId());
         Boolean result = roleAdminService.roleRelatePermission(req);
         return Response.getOk(result);
     }
