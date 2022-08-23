@@ -33,6 +33,11 @@ public class AccountController implements AccountApi {
     }
 
     @Override
+    public Response<AccountVo> getAccountInfo() {
+        return null;
+    }
+
+    @Override
     public Response<Boolean> logout() {
         return null;
     }

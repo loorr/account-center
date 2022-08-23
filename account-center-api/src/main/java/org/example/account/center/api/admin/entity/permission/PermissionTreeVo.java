@@ -6,6 +6,7 @@ import java.util.Set;
 
 @Data
 public class PermissionTreeVo {
+    private Long id;
     private Long parentId;
     private String name;
     private String code;

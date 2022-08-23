@@ -9,14 +9,21 @@ import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
+import org.example.account.center.web.common.BaseController;
+import org.example.account.center.web.service.admin.UserGroupService;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class UserGroupAdminController implements UserGroupAdminApi {
+import javax.annotation.Resource;
+import java.util.List;
 
+@RestController
+public class UserGroupAdminController extends BaseController implements UserGroupAdminApi {
+
+    @Resource
+    private UserGroupService userGroupService;
 
     @Override
-    public Response<PageResult<UserGroupTreeVo>> getUserGroupListPage(GetUserGroupPageReq req) {
+    public Response<List<UserGroupTreeVo>> getUserGroupListPage(GetUserGroupPageReq req) {
         return null;
     }
 

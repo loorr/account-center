@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(value = "账户")
 @FeignClient(value = "account-center", url = "${feign.account-center.url}")
-@RequestMapping("{tenantCode}/account")
+@RequestMapping("/account")
 public interface AccountApi {
     @ApiOperation("登陆接口")
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,6 +23,10 @@ public interface AccountApi {
     @ApiOperation("是否登陆")
     @GetMapping(value = "/is-login", produces = MediaType.APPLICATION_JSON_VALUE)
     Response<Boolean> isLogin();
+
+    @ApiOperation("获取用户信息")
+    @PostMapping(value = "/get-account-info", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<AccountVo> getAccountInfo();
 
     @ApiOperation("登出")
     @GetMapping(value = "/login-out", produces = MediaType.APPLICATION_JSON_VALUE)

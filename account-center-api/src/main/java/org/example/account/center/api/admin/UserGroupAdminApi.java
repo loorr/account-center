@@ -10,14 +10,14 @@ import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
-import org.example.account.center.api.entity.AccountVo;
-import org.example.account.center.api.entity.req.LoginReq;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Api(value ="用户组管理")
 @FeignClient(value = "account-center", url = "${feign.account-center.url}")
@@ -26,7 +26,7 @@ public interface UserGroupAdminApi {
 
     @ApiOperation("分页查询用户组列表")
     @PostMapping(value = "/get-user-group-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<PageResult<UserGroupTreeVo>> getUserGroupListPage(@Validated @RequestBody GetUserGroupPageReq req);
+    Response<List<UserGroupTreeVo>> getUserGroupListPage(@Validated @RequestBody GetUserGroupPageReq req);
 
     @ApiOperation("新增用户组")
     @PostMapping(value = "/add-user-group", produces = MediaType.APPLICATION_JSON_VALUE)
