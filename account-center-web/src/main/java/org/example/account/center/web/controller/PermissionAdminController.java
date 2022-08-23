@@ -1,9 +1,6 @@
 package org.example.account.center.web.controller;
 
-
-import com.tove.web.infra.common.PageResult;
 import com.tove.web.infra.common.Response;
-import lombok.Data;
 import org.example.account.center.api.admin.PermissionAdminApi;
 import org.example.account.center.api.admin.entity.permission.PermissionTreeVo;
 import org.example.account.center.api.admin.entity.permission.req.AddPermissionReq;
@@ -11,11 +8,12 @@ import org.example.account.center.api.admin.entity.permission.req.DeletePermissi
 import org.example.account.center.api.admin.entity.permission.req.GetPermissionListPageReq;
 import org.example.account.center.api.admin.entity.permission.req.UpdatePermissionReq;
 import org.example.account.center.web.service.admin.PermissionAdminService;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Data
+@RestController
 public class PermissionAdminController implements PermissionAdminApi {
 
     @Resource
@@ -23,21 +21,25 @@ public class PermissionAdminController implements PermissionAdminApi {
 
     @Override
     public Response<List<PermissionTreeVo>> getPermissionListPage(GetPermissionListPageReq req) {
-        return null;
+        List<PermissionTreeVo> result = permissionAdminService.getPermissionListPage(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> addPermission(AddPermissionReq req) {
-        return null;
+        Boolean result = permissionAdminService.addPermission(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> removePermission(DeletePermissionReq req) {
-        return null;
+        Boolean result = permissionAdminService.removePermission(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> updatePermission(UpdatePermissionReq req) {
-        return null;
+        Boolean result = permissionAdminService.updatePermission(req);
+        return Response.getOk(result);
     }
 }
