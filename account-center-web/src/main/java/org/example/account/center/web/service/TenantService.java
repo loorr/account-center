@@ -3,7 +3,7 @@ package org.example.account.center.web.service;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.tove.web.infra.common.BaseException;
-import org.example.account.center.web.common.AccountErrorCode;
+import org.example.account.center.api.common.AccountErrorCode;
 import org.example.account.center.web.dao.TenantMapper;
 import org.springframework.stereotype.Service;
 

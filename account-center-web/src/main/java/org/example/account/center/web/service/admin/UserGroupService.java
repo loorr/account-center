@@ -7,7 +7,7 @@ import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
-import org.example.account.center.web.common.AccountErrorCode;
+import org.example.account.center.api.common.AccountErrorCode;
 import org.example.account.center.web.dao.admin.UserGroupMapper;
 import org.example.account.center.web.model.AccountGroup;
 import org.springframework.beans.BeanUtils;

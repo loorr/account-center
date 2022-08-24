@@ -6,7 +6,7 @@ import org.example.account.center.api.admin.entity.permission.req.AddPermissionR
 import org.example.account.center.api.admin.entity.permission.req.DeletePermissionReq;
 import org.example.account.center.api.admin.entity.permission.req.GetPermissionListPageReq;
 import org.example.account.center.api.admin.entity.permission.req.UpdatePermissionReq;
-import org.example.account.center.web.common.AccountErrorCode;
+import org.example.account.center.api.common.AccountErrorCode;
 import org.example.account.center.web.dao.admin.PermissionMapper;
 import org.example.account.center.web.model.Permission;
 import org.springframework.beans.BeanUtils;

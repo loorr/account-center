@@ -3,7 +3,7 @@ package org.example.account.center.web.service.admin;
 import com.tove.web.infra.common.BaseException;
 import org.example.account.center.api.admin.entity.role.RoleTreeVo;
 import org.example.account.center.api.admin.entity.role.req.*;
-import org.example.account.center.web.common.AccountErrorCode;
+import org.example.account.center.api.common.AccountErrorCode;
 import org.example.account.center.web.dao.admin.RoleMapper;
 import org.example.account.center.web.model.Role;
 import org.springframework.beans.BeanUtils;

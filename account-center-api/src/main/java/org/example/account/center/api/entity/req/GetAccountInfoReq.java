@@ -3,8 +3,10 @@ package org.example.account.center.api.entity.req;
 import lombok.Data;
 import org.example.account.center.api.common.TenantBaseReq;
 
+import javax.validation.constraints.NotNull;
+
 @Data
-public class LoginReq extends TenantBaseReq {
-    private String email;
-    private String password;
+public class GetAccountInfoReq extends TenantBaseReq {
+    @NotNull
+    private Long uid;
 }

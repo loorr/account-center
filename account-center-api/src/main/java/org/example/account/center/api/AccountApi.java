@@ -5,6 +5,7 @@ import com.tove.web.infra.common.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.account.center.api.entity.AccountVo;
+import org.example.account.center.api.entity.req.GetAccountInfoReq;
 import org.example.account.center.api.entity.req.LoginReq;
 import org.example.account.center.api.entity.req.ModifyUserInfoReq;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -18,15 +19,15 @@ import org.springframework.web.bind.annotation.*;
 public interface AccountApi {
     @ApiOperation("登陆接口")
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> login(@Validated @RequestBody LoginReq req, @PathVariable(name = "tenantCode") String tenantCode);
+    Response<AccountVo> login(@Validated @RequestBody LoginReq req);
+
+    @ApiOperation("获取用户信息")
+    @PostMapping(value = "/get-account-info", produces = MediaType.APPLICATION_JSON_VALUE)
+    Response<AccountVo> getAccountInfo(GetAccountInfoReq req);
 
     @ApiOperation("是否登陆")
     @GetMapping(value = "/is-login", produces = MediaType.APPLICATION_JSON_VALUE)
     Response<Boolean> isLogin();
-
-    @ApiOperation("获取用户信息")
-    @PostMapping(value = "/get-account-info", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> getAccountInfo();
 
     @ApiOperation("登出")
     @GetMapping(value = "/login-out", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -7,7 +7,7 @@ import com.tove.web.infra.common.BaseErrorCode;
 import com.tove.web.infra.common.BaseException;
 import com.tove.web.infra.common.Response;
 import lombok.extern.slf4j.Slf4j;
-import org.example.account.center.web.common.AccountErrorCode;
+import org.example.account.center.api.common.AccountErrorCode;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.MethodArgumentNotValidException;
