@@ -11,6 +11,7 @@ import java.util.List;
 public class UserGroupRelateRoleReq extends TenantBaseReq {
     @NotNull
     private Long ugId;
+
     @Size(min = 1)
     private List<Long> roleIds;
 }

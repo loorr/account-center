@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 @Data
 @ApiModel
 public class AddUserReq extends TenantBaseReq {
+
     @NotEmpty
     @Email
     private String email;
@@ -20,4 +21,5 @@ public class AddUserReq extends TenantBaseReq {
     @NotEmpty
     @Size(min = 3, max = 20)
     private String nickname;
+
 }
