@@ -1,4 +1,4 @@
-package org.example.account.center.api.admin.entity.permission.req;
+package org.example.account.center.api.entity.req;
 
 import lombok.Data;
 import org.example.account.center.api.common.TenantBaseReq;
@@ -6,8 +6,7 @@ import org.example.account.center.api.common.TenantBaseReq;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class DeletePermissionReq extends TenantBaseReq {
+public class GetAccountInfoReq extends TenantBaseReq {
     @NotNull
-    private Long id;
-
+    private Long uid;
 }

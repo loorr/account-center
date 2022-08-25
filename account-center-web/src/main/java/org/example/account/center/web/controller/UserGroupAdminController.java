@@ -9,34 +9,51 @@ import org.example.account.center.api.admin.entity.usergroup.req.AddUserGroupReq
 import org.example.account.center.api.admin.entity.usergroup.req.GetUserGroupPageReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UpdateUserGroupReq;
 import org.example.account.center.api.admin.entity.usergroup.req.UserGroupRelateRoleReq;
+import org.example.account.center.web.common.BaseController;
+import org.example.account.center.web.service.admin.UserGroupService;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class UserGroupAdminController implements UserGroupAdminApi {
+import javax.annotation.Resource;
+import java.util.List;
 
+@RestController
+public class UserGroupAdminController extends BaseController implements UserGroupAdminApi {
+
+    @Resource
+    private UserGroupService userGroupService;
 
     @Override
-    public Response<PageResult<UserGroupTreeVo>> getUserGroupListPage(GetUserGroupPageReq req) {
-        return null;
+    public Response<List<UserGroupTreeVo>> getUserGroupListPage(GetUserGroupPageReq req) {
+        req.setTenantId(getTenantId());
+        List<UserGroupTreeVo> result = userGroupService.getUserGroupListPage(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> addUserGroup(AddUserGroupReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.addUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> removeUserGroup(DeleteRoleReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.removeUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> updateUserGroup(UpdateUserGroupReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.updateUserGroup(req);
+        return Response.getOk(result);
     }
 
     @Override
     public Response<Boolean> userGroupRelateRole(UserGroupRelateRoleReq req) {
-        return null;
+        req.setTenantId(getTenantId());
+        Boolean result = userGroupService.userGroupRelateRole(req);
+        return Response.getOk(result);
     }
 }

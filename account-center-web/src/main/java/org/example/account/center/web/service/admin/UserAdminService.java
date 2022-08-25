@@ -48,7 +48,7 @@ public class UserAdminService {
         Account account = new Account();
         BeanUtils.copyProperties(req, account);
         Long uid = RandomUtil.getRandomLong(6);
-        account.setId(uid);
+        account.setUid(uid);
         account.setPassword(Md5Tools.MD5(CommonConstant.DEFAULT_PASSWORD));
         for (int i = 0; i < 3; i++) {
             try {
@@ -85,5 +85,13 @@ public class UserAdminService {
 
         PageResult<AccountVo> pageResult = new PageResult<>(page.getTotal(), list);
         return pageResult;
+    }
+
+    public Boolean accountRelateUserGroup(AccountRelateUserGroupReq req) {
+        Account account = new Account();
+        account.setUid(req.getUid());
+        //account.setUgIds(req.getUgIds());
+        int row = userAdminMapper.updateAccountByCondition(account);
+        return row > 0;
     }
 }

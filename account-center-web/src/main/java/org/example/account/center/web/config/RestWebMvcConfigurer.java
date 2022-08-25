@@ -1,16 +1,26 @@
 package org.example.account.center.web.config;
 
-
+import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
-@EnableWebMvc
+import javax.annotation.Resource;
+
 @Configuration
-public class RestWebMvcConfigurer implements WebMvcConfigurer {
+public class RestWebMvcConfigurer extends WebMvcConfigurationSupport{
+
+    @Resource
+    private TenantInterceptor interceptor;
+
+    // 注册Sa-Token的注解拦截器，打开注解式鉴权功能
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(interceptor).addPathPatterns("/**");
+        // 注册注解拦截器，并排除不需要注解鉴权的接口地址 (与登录拦截器无关)
+        registry.addInterceptor(new SaAnnotationInterceptor()).addPathPatterns("/**");
+    }
 
     /**
      *  允许跨域访问
@@ -31,4 +41,5 @@ public class RestWebMvcConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
 }

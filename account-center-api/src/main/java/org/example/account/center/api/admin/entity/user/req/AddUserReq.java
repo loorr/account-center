@@ -2,12 +2,14 @@ package org.example.account.center.api.admin.entity.user.req;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import org.example.account.center.api.common.TenantBaseReq;
 
 import javax.validation.constraints.*;
 
 @Data
 @ApiModel
-public class AddUserReq {
+public class AddUserReq extends TenantBaseReq {
+
     @NotEmpty
     @Email
     private String email;
@@ -19,4 +21,5 @@ public class AddUserReq {
     @NotEmpty
     @Size(min = 3, max = 20)
     private String nickname;
+
 }

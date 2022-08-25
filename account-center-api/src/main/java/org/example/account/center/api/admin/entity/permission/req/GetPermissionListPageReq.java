@@ -1,10 +1,13 @@
 package org.example.account.center.api.admin.entity.permission.req;
 
-import com.github.pagehelper.Page;
 import lombok.Data;
+import org.example.account.center.api.common.TenantBaseReq;
 
 @Data
-public class GetPermissionListPageReq extends Page {
+public class GetPermissionListPageReq extends TenantBaseReq {
+
+    private Long parentId;
+    private Long id;
     private String name;
     private String code;
     private String url;

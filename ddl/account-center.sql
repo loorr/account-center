@@ -95,6 +95,7 @@ CREATE TABLE `relate_account_user_group` (
     PRIMARY KEY (`id`),
     UNIQUE KEY `unique_index` (`uid`,`ug_id`) USING BTREE
 ) ENGINE=InnoDB COMMENT='用户和用户组关联';
+alter table `relate_account_user_group` add column  `weight` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '权重';
 
 CREATE TABLE `relate_user_group_role` (
     `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -105,4 +106,16 @@ CREATE TABLE `relate_user_group_role` (
     PRIMARY KEY (`id`),
     UNIQUE KEY `unique_index` (`ug_id`,`r_id`) USING BTREE
 ) ENGINE=InnoDB COMMENT='用户和用户组关联';
+
+INSERT INTO tenant ( tenant_name, tenant_code, remark, valid) VALUES('super-admin', 'f0618b8e-21f6-11ed-861d-0242ac120002', NULL, 1);
+
+create table `relate_account_role`(
+    `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+    `db_create_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '数据库插入时间',
+    `db_modify_time` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) COMMENT '数据库更新时间',
+    `r_id` bigint(20) unsigned NOT NULL COMMENT 'rid',
+    `uid` bigint(20) unsigned NOT NULL COMMENT 'uid',
+    UNIQUE KEY `unique_index` (`uid`,`r_id`) USING BTREE,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB COMMENT='用户和角色关联';
 

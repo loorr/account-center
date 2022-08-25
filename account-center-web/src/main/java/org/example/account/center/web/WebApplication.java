@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //@NacosPropertySource(dataId = "account-center", autoRefreshed = true)
+
 @EnableSwagger2
 @SpringBootApplication(scanBasePackages = {
-        "org.example.account.center.web.service",
-        "org.example.account.center.web.controller"
+        "org.example.account.center.web"
 })
 @MapperScan("org.example.account.center.web.dao")
 public class WebApplication {

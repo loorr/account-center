@@ -8,7 +8,8 @@ import org.example.account.center.web.model.Account;
 @Mapper
 public interface UserAdminMapper extends AccountMapper {
 
-    @Insert("insert into account (uid, email, password, nickname) values (#{uid}, #{email}, #{password}, #{nickname})")
+    @Insert("insert into account(`tenant_id`,`uid`, `username`, `nickname`, `email`, `password`) " +
+            "values(#{tenantId},#{uid}, #{username}, #{nickname}, #{email}, #{password})")
     int insertAccount(Account account);
 
 }

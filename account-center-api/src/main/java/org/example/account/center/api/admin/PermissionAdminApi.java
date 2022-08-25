@@ -1,6 +1,5 @@
 package org.example.account.center.api.admin;
 
-import com.tove.web.infra.common.PageResult;
 import com.tove.web.infra.common.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Api(value ="权限管理")
 @FeignClient(value = "account-center", url = "${feign.account-center.url}")
 @RequestMapping("/account/admin/permission")
@@ -23,7 +24,7 @@ public interface PermissionAdminApi {
 
     @ApiOperation("分页查询权限列表")
     @PostMapping(value = "/get-list-page", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<PageResult<PermissionTreeVo>> getPermissionListPage(@Validated @RequestBody GetPermissionListPageReq req);
+    Response<List<PermissionTreeVo>> getPermissionListPage(@Validated @RequestBody GetPermissionListPageReq req);
 
     @ApiOperation("新增权限")
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
