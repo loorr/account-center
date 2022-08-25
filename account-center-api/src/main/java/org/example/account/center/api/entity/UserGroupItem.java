@@ -8,5 +8,6 @@ import java.util.List;
 public class UserGroupItem {
     private String name;
     private Integer weight;
-    private List<RoleItem> roles;
+    private List<String> roles;
+    private List<String> permissions;
 }

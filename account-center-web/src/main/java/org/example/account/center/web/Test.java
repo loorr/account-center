@@ -30,7 +30,16 @@ public class Test {
         System.out.println(date3.toString());
         System.out.println(date4.toString());
         System.out.println(date3.until(date4, ChronoUnit.DAYS));
-        System.out.printf(date3.format(DateTimeFormatter.ofPattern(DateUtils.SIMPLE_PATTERN)));
+        System.out.println(date3.format(DateTimeFormatter.ofPattern(DateUtils.SIMPLE_PATTERN)));
+
+        // 获取当前utc时间
+        LocalDateTime end = LocalDateTime.now(ZoneOffset.ofHours(0)).truncatedTo(ChronoUnit.DAYS);
+        // 减去30天
+        LocalDateTime start = end.minusDays(30);
+        System.out.println(String.valueOf(start));
+        System.out.println(String.valueOf(end));
+        long days = start.until(end, ChronoUnit.DAYS);
+        System.out.printf(days + "");
     }
 
     public static int getDiffDays(Date beginDate, Date endDate) {

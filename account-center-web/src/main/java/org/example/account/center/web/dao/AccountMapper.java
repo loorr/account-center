@@ -1,17 +1,14 @@
 package org.example.account.center.web.dao;
 
 import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.example.account.center.web.model.*;
 
 import java.util.List;
 
 @Mapper
 public interface AccountMapper {
-    @Select("select * from account where uid = #{uid} and tenant_id = #{tenantId}")
+    @Select("select * from account where uid = #{uid} and tenant_id = #{tenantId} and valid = 1")
     Account getAccountByUid(Long uid, Long tenantId);
 
     @Select("select * from account where email = #{email} and tenant_id = #{tenantId}")
@@ -52,7 +49,7 @@ public interface AccountMapper {
             "(select * from user_group ug where tenant_id=#{tenantId} ) as a "+
             "join " +
             "(select ug_id from relate_account_user_group raug  where uid = #{uid}) as b "+
-            "a.id = b.ug_id " +
+            "on a.id = b.ug_id " +
             "</script>")
     List<AccountGroup> getUserGroups(@Param("uid")Long uid, @Param("tenantId")  Long tenantId);
 
@@ -60,8 +57,11 @@ public interface AccountMapper {
             "select * from user_group ug where ug.tenant_id = #{tenantId}  and parent_id in " +
             "<foreach item='item' index='index' collection='ids' open='(' separator=',' close=')'>#{item}</foreach>" +
             "</script>")
-    List<AccountGroup> getUserGroupsByParentId( @Param("parentIds") List<Long> parentIds, @Param("tenantId")  Long tenantId);
+    List<AccountGroup> getUserGroupsByParentId( @Param("ids") List<Long> parentIds, @Param("tenantId")  Long tenantId);
 
+    @Results(id="getUserDefaultRoles",value = {
+            @Result(property = "parentId", column = "parent_id"),
+    })
     @Select("<script>" +
         "select r.name, r.id, r.parent_id from " +
         "(select r_id from  relate_account_role ra where ra.uid=#{uid}) as b " +
@@ -75,6 +75,9 @@ public interface AccountMapper {
     List<Role> getUserDefaultRoles(@Param("uid") Long uid, @Param("tenantId") Long tenantId, @Param("parentIds") List<Long> parentIds);
 
 
+    @Results(id="getRoleByAccountGroupIds",value = {
+            @Result(property = "parentId", column = "parent_id"),
+    })
     @Select("<script>" +
         "select * from  " +
         "(select * from relate_user_group_role rugr where ug_id in " +
@@ -86,6 +89,9 @@ public interface AccountMapper {
         "</script>" )
     List<Role> getRoleByAccountGroupIds(@Param("accountGroupIds") List<Long> accountGroupIds);
 
+    @Results(id="getRoleByParentId",value = {
+            @Result(property = "parentId", column = "parent_id"),
+    })
     @Select("<script>" +
             "select * from role p where p.tenant_id=#{tenantId} and p.parent_id in " +
             "<foreach collection='parentIds' item='parentId' open='(' separator=',' close=')'>#{parentId}</foreach>" +

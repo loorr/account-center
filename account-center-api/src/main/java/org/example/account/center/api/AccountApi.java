@@ -23,7 +23,7 @@ public interface AccountApi {
 
     @ApiOperation("获取用户信息")
     @PostMapping(value = "/get-account-info", produces = MediaType.APPLICATION_JSON_VALUE)
-    Response<AccountVo> getAccountInfo(GetAccountInfoReq req);
+    Response<AccountVo> getAccountInfo(@Validated @RequestBody GetAccountInfoReq req);
 
     @ApiOperation("是否登陆")
     @GetMapping(value = "/is-login", produces = MediaType.APPLICATION_JSON_VALUE)

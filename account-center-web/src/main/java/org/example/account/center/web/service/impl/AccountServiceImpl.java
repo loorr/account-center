@@ -3,6 +3,8 @@ package org.example.account.center.web.service.impl;
 
 import com.tove.web.infra.common.BaseException;
 import org.example.account.center.api.entity.AccountVo;
+import org.example.account.center.api.entity.RoleItem;
+import org.example.account.center.api.entity.UserGroupItem;
 import org.example.account.center.api.entity.req.GetAccountInfoReq;
 import org.example.account.center.api.entity.req.LoginReq;
 import org.example.account.center.api.entity.req.ModifyUserInfoReq;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +54,33 @@ public class AccountServiceImpl implements AccountService {
         result.setUid(account.getUid());
         result.setNickname(account.getNickname());
         result.setUsername(account.getUsername());
+        result = fillPermission(result, tenantId);
         return result;
+    }
+
+    private AccountVo fillPermission(AccountVo accountVo, Long tenantId) {
+        Long uid = accountVo.getUid();
+        List<Role> defaultRoles = getDefaultRoles(uid, tenantId);
+        List<String> defaultRoleCodes = defaultRoles.stream().map(Role::getName).collect(Collectors.toList());
+        List<Long> defaultRoleIds = defaultRoles.stream().map(Role::getId).collect(Collectors.toList());
+        List<Permission> defaultPermissions = getPermissionByRoleIds(defaultRoleIds, tenantId);
+        List<String> defaultPermissionCodes = defaultPermissions.stream().map(Permission::getCode).collect(Collectors.toList());
+        accountVo.setDefaultRoles(defaultRoleCodes);
+        accountVo.setDefaultPermissions(defaultPermissionCodes);
+
+        List<UserGroupItem> userGroups = new ArrayList<>();
+        List<AccountGroup> accountGroups = getAccountGroups(uid, tenantId);
+        for(AccountGroup groupItem : accountGroups) {
+            UserGroupItem userGroupItem = new UserGroupItem();
+            userGroupItem.setName(groupItem.getName());
+            List<Role> roles = getRolesByAccountGroup(Collections.singletonList(groupItem.getId()), tenantId);
+            userGroupItem.setRoles(roles.stream().map(Role::getName).collect(Collectors.toList()));
+            List<Permission> permissions = getPermissionByRoleIds(roles.stream().map(Role::getId).collect(Collectors.toList()), tenantId);
+            userGroupItem.setPermissions(permissions.stream().map(Permission::getCode).collect(Collectors.toList()));
+            userGroups.add(userGroupItem);
+        }
+
+        return accountVo;
     }
 
     private List<Role> getDefaultRoles(Long uid, Long tenantId) {
@@ -60,8 +89,8 @@ public class AccountServiceImpl implements AccountService {
 
         List<Long> rootIds = roles.stream().filter(role -> role.getParentId() == null).map(Role::getId).collect(Collectors.toList());
         int i = 0;
-        while (CollectionUtils.isEmpty(rootIds) && i < 10){
-            roles = accountMapper.getUserDefaultRoles(uid, tenantId, rootIds);
+        while (!CollectionUtils.isEmpty(rootIds) && i < 10){
+            roles = accountMapper.getRoleByParentId(rootIds, tenantId);
             roleMap.putAll(roles.stream().collect(Collectors.toMap(Role::getId, role -> role, (oldValue, newValue) -> newValue)));
             rootIds = roles.stream().filter(role -> role.getParentId() == null).map(Role::getId).collect(Collectors.toList());
             i ++;
@@ -70,12 +99,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
-    private List<AccountGroup> getAccountGroup(Long uid, Long tenantId){
+    private List<AccountGroup> getAccountGroups(Long uid, Long tenantId){
         List<AccountGroup> accountGroups = accountMapper.getUserGroups(uid, tenantId);
         Map<Long, AccountGroup> accountGroupMap = accountGroups.stream().collect(Collectors.toMap(AccountGroup::getId, accountGroup -> accountGroup, (k1, k2) -> k1));
         List<Long> rootIds = accountGroups.stream().filter(accountGroup -> accountGroup.getParentId() == null).map(AccountGroup::getId).collect(Collectors.toList());
         int i = 0;
-        while (CollectionUtils.isEmpty(rootIds) && i < 10){
+        while (!CollectionUtils.isEmpty(rootIds) && i < 10){
             accountGroups = accountMapper.getUserGroupsByParentId(rootIds, tenantId);
             accountGroupMap.putAll(accountGroups.stream().collect(Collectors.toMap(AccountGroup::getId, accountGroup -> accountGroup, (oldValue, newValue) -> newValue)));
             rootIds = accountGroups.stream().filter(accountGroup -> accountGroup.getParentId() == null).map(AccountGroup::getId).collect(Collectors.toList());
@@ -92,7 +121,7 @@ public class AccountServiceImpl implements AccountService {
         Map<Long, Role> roleMap = roles.stream().collect(Collectors.toMap(Role::getId, role -> role, (k1, k2) -> k1));
         List<Long> rootIds = roles.stream().filter(role -> role.getParentId() == null).map(Role::getId).collect(Collectors.toList());
         int i = 0;
-        while (CollectionUtils.isEmpty(rootIds) && i < 10){
+        while (!CollectionUtils.isEmpty(rootIds) && i < 10){
             roles = accountMapper.getRoleByParentId(rootIds, tenantId);
             roleMap.putAll(roles.stream().collect(Collectors.toMap(Role::getId, role -> role, (oldValue, newValue) -> newValue)));
             rootIds = roles.stream().filter(role -> role.getParentId() == null).map(Role::getId).collect(Collectors.toList());
@@ -109,7 +138,7 @@ public class AccountServiceImpl implements AccountService {
         Map<Long, Permission> permissionMap = permissions.stream().collect(Collectors.toMap(Permission::getId, permission -> permission, (k1, k2) -> k1));
         List<Long> rootIds = permissions.stream().filter(permission -> permission.getParentId() == null).map(Permission::getId).collect(Collectors.toList());
         int i = 0;
-        while (CollectionUtils.isEmpty(rootIds) && i < 10){
+        while (!CollectionUtils.isEmpty(rootIds) && i < 10){
             permissions = accountMapper.getPermissionsByParentId(rootIds, tenantId);
             permissionMap.putAll(permissions.stream().collect(Collectors.toMap(Permission::getId, permission -> permission, (oldValue, newValue) -> newValue)));
             rootIds = permissions.stream().filter(permission -> permission.getParentId() == null).map(Permission::getId).collect(Collectors.toList());
