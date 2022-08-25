@@ -22,7 +22,7 @@ public class AccountController extends BaseController implements AccountApi {
     private AccountService accountService;
 
     @Override
-    public Response<AccountVo> login(LoginReq req){
+    public Response<AccountVo> login(LoginReq req, String tenantCode){
         req.setTenantId(getTenantId());
         log.info("login req:{}", JSON.toJSONString(req));
         AccountVo result = accountService.login(req);
@@ -30,7 +30,7 @@ public class AccountController extends BaseController implements AccountApi {
     }
 
     @Override
-    public Response<AccountVo> getAccountInfo(GetAccountInfoReq req) {
+    public Response<AccountVo> getAccountInfo(GetAccountInfoReq req, String tenantCode) {
         req.setTenantId(getTenantId());
         log.info("getAccountInfo req:{}", JSON.toJSONString(req));
         AccountVo result = accountService.getAccountInfo(req);
